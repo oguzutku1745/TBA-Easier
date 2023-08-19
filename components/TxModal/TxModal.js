@@ -1,6 +1,7 @@
 import styles from './TxModal.module.css'
 import Image from 'next/image';
 
+
 const TxModal = ({ isOpen, onClose, error, isLoading, isSent, isSuccess, isFailed }) => {
     if (!isOpen) return null;
     

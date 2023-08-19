@@ -214,55 +214,56 @@ const Home = () => {
           
         </div>
 
-        {NFTS.length > 0 && (
-            tokenDetails && isNexted ? (
-              <>
-              <div className={styles.nftWriting}>- Your Accounts -</div>
-              {responseTbaNfts.loading ? (
+        {
+    (tokenDetails && isNexted) ? (
+        <>
+            <div className={styles.nftWriting}>- Your Accounts -</div>
+            {responseTbaNfts.loading ? (
                 <div className={styles.aligner}>
-                  Loading...
+                    Loading...
                 </div>
-              ) : tbaNftDetails?.length > 0 ? (
+            ) : tbaNftDetails?.length > 0 ? (
                 <div className={styles.aligner}>
-                  <table className={styles.table}>
-                    <thead>
-                      <tr className={styles.header}>
-                        <td className={styles.cell}>Account Address</td>
-                        <td className={styles.cell}>Implementation Address</td>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {tbaNftDetails.map((acc, index) => (
-                        <AccountComponent index={index} key={index} acc={acc} />
-                      ))}
-                    </tbody>
-                  </table>
+                    <table className={styles.table}>
+                        <thead>
+                            <tr className={styles.header}>
+                                <td className={styles.cell}>Account Address</td>
+                                <td className={styles.cell}>Implementation Address</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {tbaNftDetails.map((acc, index) => (
+                                <AccountComponent index={index} key={index} acc={acc} />
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
-              ) : (
-                <div className={styles.aligner}>
-                  There is no Token Bound Account for this NFT
-                </div>
-              )}
-            </>
             ) : (
-            <>
-          <div className={styles.nftWriting}>- Your NFTs -</div>
-          <div className={styles.nftGallery}>
-            {NFTS.map((nft, index) => (
-              <div key={index}>
-                <NFTComponent     
-                  setInputAddress={setInputAddress}
-                  setInputTokenId={setInputTokenId} 
-                  setTokenImage={setTokenImage} 
-                  nfts={nft} 
-                  setTokenDetails={setTokenDetails}
-                  next={nexted} />
-              </div>
-            ))}
-          </div>
-              </>
-            ))
-          }
+                <div className={styles.aligner}>
+                    There is no Token Bound Account for this NFT
+                </div>
+            )}
+        </>
+    ) : (NFTS.length > 0 ? (
+        <>
+            <div className={styles.nftWriting}>- Your NFTs -</div>
+            <div className={styles.nftGallery}>
+                {NFTS.map((nft, index) => (
+                    <div key={index}>
+                        <NFTComponent     
+                            setInputAddress={setInputAddress}
+                            setInputTokenId={setInputTokenId} 
+                            setTokenImage={setTokenImage} 
+                            nfts={nft} 
+                            setTokenDetails={setTokenDetails}
+                            next={nexted} />
+                    </div>
+                ))}
+            </div>
+        </>
+    ) : null)
+}
+
         
         
 

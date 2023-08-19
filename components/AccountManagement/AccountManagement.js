@@ -2,6 +2,7 @@ import styles from './AccountManagement.module.css'
 import PolygonABI from '@/RegistryABIPolygon';
 import { useState, useEffect } from 'react';
 import {
+    useAccount,
     useWaitForTransaction,
     usePrepareContractWrite,
     useContractWrite
@@ -24,6 +25,11 @@ const AccountManagement = ({ NftDetails, tbaDetails }) => {
     const [shouldProceed, setShouldProceed] = useState(false);
     const [isButtonEnabled, setIsButtonEnabled] = useState(true);
 
+    const account = useAccount({
+        onConnect({ address, connector, isReconnected }) {
+          console.log('Connected', { address, connector, isReconnected })
+        },
+      })
 
     const {config} = usePrepareContractWrite({
         address: '0x02101dfB77FDE026414827Fdc604ddAF224F0921',
@@ -96,6 +102,12 @@ const AccountManagement = ({ NftDetails, tbaDetails }) => {
     const handleCreateTBA = () => {
         setErrorMessage("");
         reset();
+
+        if (!account.address) {
+            setErrorMessage("Please Connect Your Wallet First.");
+            openModal();
+            return;
+        }
     
         if (!/^0x[a-fA-F0-9]{40}$/.test(implementationInput)) {
             setErrorMessage("Invalid Ethereum address.");
